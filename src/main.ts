@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import store from './store'
 // import initConfig from './init-config'
 
 Vue.config.productionTip = false
@@ -20,6 +21,7 @@ console.log(API_ENV)
 const vm = new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })

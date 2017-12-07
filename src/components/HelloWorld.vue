@@ -18,9 +18,9 @@
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
     </ul>
     <div class="flex">
-      <div class="col">11111</div>
-      <div class="col">22222</div>
-      <div class="col">33333</div>
+      <div class="col">{{ info.data }}</div>
+      <div class="col">{{ testMixinArg }}</div>
+      <RC></RC>
     </div>
   </div>
 </template>
@@ -28,10 +28,19 @@
 <script lang="ts">
   import Vue from 'vue'
   import Component from 'vue-class-component'
+  import { Getter } from 'vuex-class'
+  import TestMixin from '../mixins/test-mixin'
+  import RC from './renderComponent.vue'
 
-  @Component({})
+
+  @Component({
+    components: { RC },
+    mixins: [TestMixin]
+  })
   export default class HelloWorld extends Vue {
     msg: string = 'Welcome to Your Vue.js App HOT'
+
+    @Getter info
   }
 </script>
 
