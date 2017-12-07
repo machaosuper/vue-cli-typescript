@@ -5,7 +5,7 @@ import { Vue, Component } from 'vue-property-decorator'
 export default class FilterItem extends Vue {
   render (h, context) {
     return (
-      <div>这条是jsx</div>
+      <div class="jsx">这条是jsx</div>
     )
   }
 }

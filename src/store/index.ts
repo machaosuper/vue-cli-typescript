@@ -5,10 +5,10 @@ import user from './modules/user'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   modules: {
     user
   }
 })
 
-// export default store
+export default store
