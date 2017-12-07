@@ -52,6 +52,22 @@ module.exports = {
         })
       },
       {
+        test: /\.scss$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          'sass-loader'
+        ],
+      },
+      {
+        test: /\.sass$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          'sass-loader?indentedSyntax'
+        ],
+      },
+      {
         test: /\.ts$/,
         exclude: /node_modules/,
         enforce: 'pre',

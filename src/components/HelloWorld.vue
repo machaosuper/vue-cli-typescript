@@ -17,6 +17,11 @@
       <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
     </ul>
+    <div class="flex">
+      <div class="col">11111</div>
+      <div class="col">22222</div>
+      <div class="col">33333</div>
+    </div>
   </div>
 </template>
 
@@ -31,7 +36,14 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
+.flex{
+  display: flex;
+  justify-content: space-around;
+  .col{
+    color: red;
+  }
+}
 h1, h2 {
   font-weight: normal;
 }
