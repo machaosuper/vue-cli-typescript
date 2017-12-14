@@ -78,5 +78,15 @@ module.exports = {
     // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report
   },
-  version: '2.6.1'
+
+  sites: {
+    dev: { local: "172.16.106.110:8001", remote: "172.16.106.110:8080" },
+    test: { local: "bsm.haveoo.com", remote: "bsm.haveoo.com" },
+    uat: { local: "bsm-uat.lincomb.com", remote: "bsm-uat.lincomb.com" },
+    production: { local: "bsm.lincomb.com", remote: "bsm.lincomb.com" },
+  },
+
+  version: '2.6.1',
+
+  title: 'vue-cli-typescript-test'
 }

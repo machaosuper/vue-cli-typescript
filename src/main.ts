@@ -4,6 +4,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+
+import http from './server'
+Vue.use(http)
 // import initConfig from './init-config'
 
 Vue.config.productionTip = false
@@ -16,6 +19,7 @@ declare const VERSION: string
 console.log(VERSION)
 declare const API_ENV: string
 console.log(API_ENV)
+
 // initConfig()
 /* eslint-disable no-new */
 const vm = new Vue({

@@ -34,7 +34,8 @@ const webpackConfig = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       'process.env': env,
       VERSION: JSON.stringify(config.version),
-      API_ENV: JSON.stringify(API_ENV)
+      API_ENV: JSON.stringify(API_ENV),
+      SITES: JSON.stringify(config.sites)
     }),
     new UglifyJsPlugin({
       uglifyOptions: {
@@ -51,7 +52,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       // set the following option to `true` if you want to extract CSS from
       // codesplit chunks into this main css file as well.
       // This will result in *all* of your app's CSS being loaded upfront.
-      allChunks: false,
+      allChunks: true,
     }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
@@ -64,6 +65,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
+      title: config.title,
       filename: process.env.NODE_ENV === 'testing'
         ? 'index.html'
         : config.build.index,

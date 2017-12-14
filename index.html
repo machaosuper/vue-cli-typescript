@@ -3,10 +3,17 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>vue-cli-typescript</title>
+    <!-- <title>vue-cli-typescript</title> -->
+    <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <script type="text/javascript">
+      <% if(htmlWebpackPlugin.options.sites) { %>
+        window.CONFIG_SITE = "<%= htmlWebpackPlugin.options.sites.dev.local %>";
+        // console.log(window);
+      <% } %>
+    </script>
   </body>
 </html>

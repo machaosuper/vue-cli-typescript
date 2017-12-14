@@ -10,6 +10,7 @@
     "dev:test": "cross-env API_ENV=test webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "dev:uat": "cross-env API_ENV=uat webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "dev:production": "cross-env API_ENV=production webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev:mock": "cross-env API_ENV=mock webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "build:dev": "cross-env API_ENV=dev node build/build.js",
     "build:test": "cross-env API_ENV=test node build/build.js",
     "build:uat": "cross-env API_ENV=uat node build/build.js",

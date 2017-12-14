@@ -35,12 +35,21 @@
 
   @Component({
     components: { RC },
-    mixins: [TestMixin]
+    mixins: [TestMixin],
   })
   export default class HelloWorld extends Vue {
     msg: string = 'Welcome to Your Vue.js App HOT'
 
+    private $http
+
     @Getter info
+
+    created () {
+      // console.log(this)
+      this.$http.post('/api/imgList', {pageSize: 10, pageNo: 5}).then(res => {
+        console.log(res);
+      })
+    }
   }
 </script>
 
