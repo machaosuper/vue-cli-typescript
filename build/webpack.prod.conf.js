@@ -15,6 +15,8 @@ const env = process.env.NODE_ENV === 'testing'
   : require('../config/prod.env')
   const API_ENV = process.env.API_ENV || 'production'
 
+  const API_ORIGIN = config.useProxy ? '/': config.sites[API_ENV]
+
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
@@ -35,7 +37,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       'process.env': env,
       VERSION: JSON.stringify(config.version),
       API_ENV: JSON.stringify(API_ENV),
-      SITES: JSON.stringify(config.sites)
+      API_ORIGIN: JSON.stringify(API_ORIGIN)
     }),
     new UglifyJsPlugin({
       uglifyOptions: {

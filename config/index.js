@@ -80,13 +80,16 @@ module.exports = {
   },
 
   sites: {
-    dev: { local: "172.16.106.110:8001", remote: "172.16.106.110:8080" },
-    test: { local: "bsm.haveoo.com", remote: "bsm.haveoo.com" },
-    uat: { local: "bsm-uat.lincomb.com", remote: "bsm-uat.lincomb.com" },
-    production: { local: "bsm.lincomb.com", remote: "bsm.lincomb.com" },
+    dev: 'http://172.16.107.90:8000/',
+    test: 'http://172.16.107.224:8080/',
+    uat: 'http://uat.linktownfront.cdxzhi.com/',
+    production: 'http://linktownfront.cdxzhi.com/',
+    mock: '/'
   },
 
   version: '2.6.1',
 
-  title: 'vue-cli-typescript-test'
+  title: 'vue-cli-typescript-test',
+  
+  useProxy: false
 }

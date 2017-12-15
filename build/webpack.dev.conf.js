@@ -8,15 +8,26 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
 
-var appData = require('./data.json');
-var imgListData = appData.imgList;
-var bodyParser = require('body-parser');
+const ip = require('ip');
+const IP = ip.address();
 
-var timer = null;
+const appData = require('./data.json');
+const bodyParser = require('body-parser');
 
-const HOST = process.env.HOST
+const timer = null;
+
+const HOST = IP || process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 const API_ENV = process.env.API_ENV || 'dev'
+const API_ORIGIN = config.useProxy ? '/': config.sites[API_ENV]
+const httpProxy = API_ENV === 'mock' || !config.useProxy ? {} : {
+  "/linktownFront": {
+    target: API_ORIGIN,
+    changeOrigin: true
+  }
+}
+console.log(httpProxy)
+
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
@@ -30,14 +41,14 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     historyApiFallback: true,
     hot: true,
     compress: true,
+    open: config.dev.autoOpenBrowser,    
     host: HOST || config.dev.host,
     port: PORT || config.dev.port,
-    open: config.dev.autoOpenBrowser,
     overlay: config.dev.errorOverlay
       ? { warnings: false, errors: true }
       : false,
     publicPath: config.dev.assetsPublicPath,
-    proxy: config.dev.proxyTable,
+    proxy: httpProxy,
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll,
@@ -47,36 +58,45 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       app.use(bodyParser.urlencoded({
         extended: true
       }));
-      app.post('/api/imgList', function(req, res) {
-        // console.log(req.body);
-        var imageListData = imgListData;
-        var type = req.body.type || 0;
-        var pageSize = +req.body.pageSize || 10;
-        var pageNo = +req.body.pageNo || 0;
-        var count = pageSize * pageNo;
-        if (+type) {
-          var imgListArr = [];
-          imageListData.forEach((val) => {
-            if (val.type == type) {
-              imgListArr.push(val);
-            }
-          });
-          var imageListData = imgListArr;
-        }
-        var imgList = imageListData.slice(count, count + pageSize);
-        var isLast = imageListData.slice(count + pageSize + 1).length === 0;
-        clearTimeout(timer);
-        timer = setTimeout(function () {
+      
+      appData.map(val => {
+        app[val.metheod](val.api, (req, res) => {
           res.json({
-            code: '000001',
-            data: {
-              imgList: imgList,
-              isLast: isLast,
-              total: imageListData.length
-            }
-          });  
-        }, 1000);
+            code: '000000',
+            data: val.data
+          })
+        })
       });
+      // app.post('/api/imgList', function(req, res) {
+      //   // console.log(req.body);
+      //   var imageListData = imgListData;
+      //   var type = req.body.type || 0;
+      //   var pageSize = +req.body.pageSize || 10;
+      //   var pageNo = +req.body.pageNo || 0;
+      //   var count = pageSize * pageNo;
+      //   if (+type) {
+      //     var imgListArr = [];
+      //     imageListData.forEach((val) => {
+      //       if (val.type == type) {
+      //         imgListArr.push(val);
+      //       }
+      //     });
+      //     var imageListData = imgListArr;
+      //   }
+      //   var imgList = imageListData.slice(count, count + pageSize);
+      //   var isLast = imageListData.slice(count + pageSize + 1).length === 0;
+      //   clearTimeout(timer);
+      //   timer = setTimeout(function () {
+      //     res.json({
+      //       code: '000001',
+      //       data: {
+      //         imgList: imgList,
+      //         isLast: isLast,
+      //         total: imageListData.length
+      //       }
+      //     });  
+      //   }, 1000);
+      // });
     }
   },
   plugins: [
@@ -84,7 +104,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       'process.env': require('../config/dev.env'),
       VERSION: JSON.stringify(config.version),
       API_ENV: JSON.stringify(API_ENV),
-      SITES: JSON.stringify(config.sites)
+      API_ORIGIN: JSON.stringify(API_ORIGIN)
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.

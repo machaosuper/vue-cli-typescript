@@ -46,9 +46,25 @@
 
     created () {
       // console.log(this)
-      this.$http.post('/api/imgList', {pageSize: 10, pageNo: 5}).then(res => {
+      // this.$http.get('api/imgList', {pageSize: 10, pageNo: 5}).then(res => {
+      //   console.log(res);
+      this.$http.post('/linktownFront/user/login.do', {userName:15214380665, pwd: 'e10adc3949ba59abbe56e057f20f883e', deviceOS:4, deviceType:0}).then(res => {
         console.log(res);
       })
+      // this.$http.post('lincombFront/sos/queryOrderList4Lbn.do', {
+      //   businessId: 'BD2017011916590800004527', 
+      //   status: '',
+      //   startTime: '',
+      //   endTime: '',
+      //   pageNo:0,
+      //   serNum: '20160000000000',
+      //   source: 'app',
+      //   clientType: 'H5',
+      //   reqTime: '20160106000000',
+      //   sign: '4d84d86f1c0ca4bbd6489bd0878d549d'
+      // }).then(res => {
+      //   console.log(res);
+      // })
     }
   }
 </script>

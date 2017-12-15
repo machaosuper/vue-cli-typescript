@@ -19,6 +19,7 @@ declare const VERSION: string
 console.log(VERSION)
 declare const API_ENV: string
 console.log(API_ENV)
+console.log(window)
 
 // initConfig()
 /* eslint-disable no-new */

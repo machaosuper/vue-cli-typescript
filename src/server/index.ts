@@ -35,7 +35,7 @@ class Http implements IHttp {
       if (res.data.hasOwnProperty('code') && String(res.data.code) === this.configAdapter.successCode) {
         resolve(res.data)
       } else {
-        resolve(res.data)
+        reject(res.data)
       }
     })
     return promise

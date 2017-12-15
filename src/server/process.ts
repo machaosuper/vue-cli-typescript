@@ -1,14 +1,17 @@
 import axios from 'axios'
 import qs from 'qs'
 import router from '../router'
+import { serverConfig } from './config'
 
 const Axios = axios.create({
-  baseURL: '/',
+  baseURL: serverConfig.apiOrigin,
   timeout: 10000,
   responseType: 'json',
   withCredentials: true, // 是否允许带cookie这些
   headers: {
-    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+    'version': serverConfig.version,
+    'app': serverConfig.origin
   }
 })
 
@@ -110,8 +113,8 @@ Axios.interceptors.response.use(
     //   }
     // }
     // 返回 response 里的错误信息
-    let errorInfo = error.data.error ? error.data.error.message : error.data
-    return Promise.reject(errorInfo)
+    // let errorInfo = error.data.error ? error.data.error.message : error.data
+    return Promise.reject(error)
   }
 )
 
